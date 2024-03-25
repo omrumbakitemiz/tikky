@@ -1,0 +1,38 @@
+{
+  "name": "tikky",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "build-sw": "SW=true nuxt build",
+    "dev": "nuxt dev",
+    "dev-sw": "SW=true nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@radix-icons/vue": "^1.0.0",
+    "@vee-validate/zod": "^4.12.6",
+    "@vite-pwa/nuxt": "^0.6.0",
+    "@vueuse/core": "^10.9.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "radix-vue": "^1.5.3",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7",
+    "vee-validate": "^4.12.6",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@iconify-json/radix-icons": "^1.1.14",
+    "@iconify/vue": "^4.1.1",
+    "@nuxtjs/color-mode": "^3.3.3",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "nuxt": "^3.11.1",
+    "shadcn-nuxt": "^0.10.2",
+    "typescript": "^5.4.3"
+  }
+}
