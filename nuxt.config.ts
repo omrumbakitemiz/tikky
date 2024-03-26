@@ -23,9 +23,11 @@ export default defineNuxtConfig({
     filename: sw ? 'sw.ts' : undefined,
     registerType: 'autoUpdate',
     manifest: {
-      name: 'Nuxt Vite PWA',
-      short_name: 'NuxtVitePWA',
-      theme_color: '#ffffff',
+      start_url: 'tikky.immino.dev/',
+      scope: 'tikky.immino.dev/',
+      name: 'Tikky - Pay to your friends',
+      short_name: 'Tikky',
+      theme_color: '#40E0D0',
       icons: [
         {
           src: 'pwa-192x192.png',
