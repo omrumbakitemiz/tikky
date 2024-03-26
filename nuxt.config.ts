@@ -3,6 +3,13 @@ import process from 'node:process';
 const sw = process.env.SW === 'true';
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    // Public keys that are exposed to the client
+    public: {
+      appVersion: process.env.npm_package_version,
+      immino: 'test',
+    },
+  },
   devtools: {
     enabled: true,
     timeline: {

@@ -2,6 +2,7 @@
   "name": "tikky",
   "private": true,
   "type": "module",
+  "version": "0.0.3",
   "scripts": {
     "build": "nuxt build",
     "build-sw": "SW=true nuxt build",
