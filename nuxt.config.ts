@@ -30,8 +30,8 @@ export default defineNuxtConfig({
     filename: sw ? 'sw.ts' : undefined,
     registerType: 'autoUpdate',
     manifest: {
-      start_url: 'tikky.immino.dev/',
-      scope: 'tikky.immino.dev/',
+      start_url: '/',
+      scope: 'https://tikky.immino.dev/',
       name: 'Tikky - Pay to your friends',
       short_name: 'Tikky',
       theme_color: '#40E0D0',
