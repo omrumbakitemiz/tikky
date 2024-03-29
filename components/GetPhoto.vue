@@ -1,17 +1,20 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
-const photoResult = ref<HTMLDivElement>();
+const photoResult = ref<string>();
 
 const openCamera = () => {
   if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices
-      .getUserMedia({ video: true })
+      .getUserMedia({ video: { width: 180 } })
       .then((mediaStream) => {
         if (video.value) {
           video.value.srcObject = mediaStream;
+          video.value.onloadedmetadata = () => {
+            video.value?.play();
+          };
         }
 
         const track = mediaStream.getVideoTracks()[0];
@@ -26,16 +29,18 @@ function capture() {
   if (!canvas.value || !video.value || !photoResult.value) {
     return;
   }
-  canvas.value.width = 200;
-  canvas.value.height = 200;
-  canvas.value.getContext('2d')?.drawImage(video.value, 0, 0, 200, 200);
+  canvas.value.width = 180;
+  canvas.value.height = 180;
 
-  photoResult.value.innerHTML = canvas.value.toDataURL();
+  canvas.value.getContext('2d')?.drawImage(video.value, 0, 0, canvas.value.width, canvas.value.height);
+
+  photoResult.value = canvas.value.toDataURL();
+  console.log(photoResult.value);
 }
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col w-full">
     <div class="flex gap-x-2">
       <!-- open camera -->
       <Button @click="openCamera">Take Photo</Button>
@@ -44,10 +49,8 @@ function capture() {
       <Button @click="capture">Capture</Button>
     </div>
 
-    <video ref="video" autoplay></video>
+    <video ref="video"></video>
 
-    <canvas ref="canvas"></canvas>
-
-    <div ref="photoResult"></div>
+    <canvas class="hidden" ref="canvas"></canvas>
   </div>
 </template>
