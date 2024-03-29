@@ -2,18 +2,6 @@
 // get version from runtimeConfig
 const config = useRuntimeConfig();
 const route = useRoute();
-
-const video = ref<HTMLVideoElement | null>(null);
-
-const openCamera = () => {
-  // open camera
-  navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-    const video = document.createElement('video');
-    video.srcObject = stream;
-    video.autoplay = true;
-    document.body.appendChild(video);
-  });
-};
 </script>
 
 <template>
@@ -27,9 +15,9 @@ const openCamera = () => {
 
         <p>ID (from query param): {{ route.query.id }}</p>
 
-        <!-- open camera -->
-        <Button @click="openCamera">Open Camera</Button>
-        <video ref="video" autoplay></video>
+        <ClientOnly>
+          <GetPhoto />
+        </ClientOnly>
       </div>
     </NuxtLayout>
   </div>
