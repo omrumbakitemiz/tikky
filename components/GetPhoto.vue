@@ -16,8 +16,6 @@ const openCamera = () => {
             video.value?.play();
           };
         }
-
-        const track = mediaStream.getVideoTracks()[0];
       })
       .catch(function (error) {
         console.log('Something went wrong!');
@@ -26,16 +24,15 @@ const openCamera = () => {
 };
 
 function capture() {
-  if (!canvas.value || !video.value || !photoResult.value) {
+  if (!canvas.value || !video.value) {
     return;
   }
-  canvas.value.width = 180;
-  canvas.value.height = 180;
+  canvas.value.width = video.value.videoWidth;
+  canvas.value.height = video.value.videoHeight;
 
   canvas.value.getContext('2d')?.drawImage(video.value, 0, 0, canvas.value.width, canvas.value.height);
 
   photoResult.value = canvas.value.toDataURL();
-  console.log(photoResult.value);
 }
 </script>
 
@@ -49,8 +46,11 @@ function capture() {
       <Button @click="capture">Capture</Button>
     </div>
 
-    <video ref="video"></video>
+    <video class="size-44" ref="video"></video>
 
-    <canvas class="hidden" ref="canvas"></canvas>
+    <canvas class="hidden size-44" ref="canvas"></canvas>
+
+    Image Result:
+    <img v-if="photoResult" class="size-44" :src="photoResult" />
   </div>
 </template>
