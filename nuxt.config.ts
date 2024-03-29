@@ -3,6 +3,11 @@ import process from 'node:process';
 const sw = process.env.SW === 'true';
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      viewport: 'width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0',
+    },
+  },
   runtimeConfig: {
     // Public keys that are exposed to the client
     public: {

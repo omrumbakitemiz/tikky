@@ -17,8 +17,8 @@ const openCamera = () => {
           };
         }
       })
-      .catch(function (error) {
-        console.log('Something went wrong!');
+      .catch((error) => {
+        console.log('Something went wrong!', error);
       });
   }
 };
