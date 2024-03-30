@@ -43,9 +43,9 @@ const clearImage = () => {
       <img v-if="base64Image" :src="base64Image" alt="Snapshot" class="w-full" />
     </div>
 
-    <div v-if="base64Image" class="flex flex-col gap-y-3">
-      <Button class="w-full" variant="secondary">Upload Photo</Button>
-      <Button class="w-full" variant="destructive" @click="clearImage()">Clear Image</Button>
+    <div class="flex flex-col gap-y-3">
+      <Button :disabled="!base64Image" class="w-full" variant="secondary">Upload Photo</Button>
+      <Button :disabled="!base64Image" class="w-full" variant="destructive" @click="clearImage()">Clear Image</Button>
     </div>
   </div>
 </template>
