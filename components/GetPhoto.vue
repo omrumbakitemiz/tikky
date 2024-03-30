@@ -8,7 +8,7 @@ const photoResult = ref<string>();
 const openCamera = () => {
   if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices
-      .getUserMedia({ video: { width: 180 } })
+      .getUserMedia({ video: { width: 180, facingMode: 'back' } })
       .then((mediaStream) => {
         if (video.value) {
           video.value.srcObject = mediaStream;
