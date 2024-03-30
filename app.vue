@@ -1,19 +1,15 @@
 <script setup lang="ts">
-// get version from runtimeConfig
-const config = useRuntimeConfig();
-const route = useRoute();
+const runtimeConfig = useRuntimeConfig();
 </script>
 
 <template>
-  <div>
+  <div class="h-screen">
     <NuxtPwaManifest />
     <NuxtLayout>
       <div class="flex flex-col gap-y-4">
-        <ClientOnly> PWA Installed: {{ $pwa?.isPWAInstalled }} </ClientOnly>
+        <ClientOnly v-if="runtimeConfig.public.env === 'PRODUCTION'"> PWA Installed: {{ $pwa?.isPWAInstalled }} </ClientOnly>
 
-        <p>App Version: {{ config.public.appVersion }}</p>
-
-        <p>ID (from query param): {{ route.query.id }}</p>
+        <GetPhotoNew />
       </div>
     </NuxtLayout>
   </div>

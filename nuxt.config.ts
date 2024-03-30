@@ -3,11 +3,16 @@ import process from 'node:process';
 const sw = process.env.SW === 'true';
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      viewport: 'width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0',
+    },
+  },
   runtimeConfig: {
     // Public keys that are exposed to the client
     public: {
       appVersion: process.env.npm_package_version,
-      immino: 'test',
+      env: process.env.NODE_ENV as 'DEVELOPMENT' | 'PRODUCTION',
     },
   },
   devtools: {
@@ -30,27 +35,28 @@ export default defineNuxtConfig({
     filename: sw ? 'sw.ts' : undefined,
     registerType: 'autoUpdate',
     manifest: {
-      start_url: '/',
-      scope: 'https://tikky.immino.dev/',
-      name: 'Tikky - Pay to your friends',
+      orientation: 'any',
+      display: 'standalone',
+      lang: 'en',
+      name: 'Tikky',
       short_name: 'Tikky',
-      theme_color: '#40E0D0',
+      start_url: process.env.NODE_ENV === 'PRODUCTION' ? 'https://tikky.immino.dev' : 'localhostL3000',
+      scope: process.env.NODE_ENV === 'PRODUCTION' ? 'https://tikky.immino.dev' : 'localhostL3000',
+      description: 'Pay Friends Easily: Your Bill Sharing Solution!',
+      theme_color: '#8936FF',
+      background_color: '#2EC6FE',
       icons: [
         {
-          src: 'pwa-192x192.png',
-          sizes: '192x192',
+          purpose: 'maskable',
+          sizes: '512x512',
+          src: 'icon512_maskable.png',
           type: 'image/png',
         },
         {
-          src: 'pwa-512x512.png',
+          purpose: 'any',
           sizes: '512x512',
+          src: 'icon512_rounded.png',
           type: 'image/png',
-        },
-        {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-          purpose: 'any maskable',
         },
       ],
     },
