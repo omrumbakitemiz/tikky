@@ -15,9 +15,7 @@ const route = useRoute();
 
         <p>ID (from query param): {{ route.query.id }}</p>
 
-        <ClientOnly>
-          <GetPhoto />
-        </ClientOnly>
+        <GetPhotoNew />
       </div>
     </NuxtLayout>
   </div>
