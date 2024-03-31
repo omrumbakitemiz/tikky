@@ -5,6 +5,7 @@ import Camera from 'simple-vue-camera';
 const camera = ref<InstanceType<typeof Camera>>();
 const cameraEnabled = ref(false);
 const base64Image = ref<string>();
+const openAIResponse = ref();
 
 const snapshot = async () => {
   const blob = await camera.value?.snapshot();
@@ -26,14 +27,18 @@ const clearImage = () => {
 };
 
 const generateData = async () => {
-  const response = await $fetch('/vision', {
-    method: 'POST',
-    body: {
-      imageString: base64Image.value,
-    },
-  });
+  try {
+    openAIResponse.value = await $fetch('/vision', {
+      method: 'POST',
+      body: {
+        imageString: base64Image.value,
+      },
+    });
 
-  console.log(response);
+    console.log(openAIResponse.value);
+  } catch (error) {
+    openAIResponse.value = error;
+  }
 };
 </script>
 
@@ -57,6 +62,10 @@ const generateData = async () => {
     <div class="flex flex-col gap-y-3">
       <Button :disabled="!base64Image" class="w-full" variant="secondary" @click="generateData">Upload Photo</Button>
       <Button :disabled="!base64Image" class="w-full" variant="destructive" @click="clearImage">Clear Image</Button>
+    </div>
+
+    <div>
+      <span>openAIResponse: {{ JSON.stringify(openAIResponse) }}</span>
     </div>
   </div>
 </template>
