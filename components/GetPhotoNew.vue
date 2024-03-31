@@ -24,6 +24,17 @@ const clearImage = () => {
   base64Image.value = '';
   cameraEnabled.value = true;
 };
+
+const generateData = async () => {
+  const response = await $fetch('/vision', {
+    method: 'POST',
+    body: {
+      imageString: base64Image.value,
+    },
+  });
+
+  console.log(response);
+};
 </script>
 
 <template>
@@ -44,8 +55,8 @@ const clearImage = () => {
     </div>
 
     <div class="flex flex-col gap-y-3">
-      <Button :disabled="!base64Image" class="w-full" variant="secondary">Upload Photo</Button>
-      <Button :disabled="!base64Image" class="w-full" variant="destructive" @click="clearImage()">Clear Image</Button>
+      <Button :disabled="!base64Image" class="w-full" variant="secondary" @click="generateData">Upload Photo</Button>
+      <Button :disabled="!base64Image" class="w-full" variant="destructive" @click="clearImage">Clear Image</Button>
     </div>
   </div>
 </template>
