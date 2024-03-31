@@ -29,21 +29,18 @@ const clearImage = () => {
 };
 
 const generateData = async () => {
-  try {
-    loading.value = true;
-    openAIResponse.value = await $fetch('/vision', {
-      method: 'POST',
-      body: {
-        imageString: base64Image.value,
-      },
-    });
+  loading.value = true;
 
-    console.error(openAIResponse.value);
-  } catch (error) {
-    openAIResponse.value = error;
-  } finally {
-    loading.value = false;
-  }
+  const response = await $fetch('/vision', {
+    method: 'POST',
+    body: {
+      imageString: base64Image.value,
+    },
+  });
+
+  openAIResponse.value = response;
+
+  loading.value = false;
 };
 </script>
 
