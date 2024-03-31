@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import { z } from 'zod';
 
-const openai = new OpenAI();
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const visionSchema = z.object({
   imageString: z.string(),
