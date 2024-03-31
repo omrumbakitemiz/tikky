@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { blobToBase64 } from '@/utils/blob';
+import { Loader2 } from 'lucide-vue-next';
 import Camera from 'simple-vue-camera';
 
 const camera = ref<InstanceType<typeof Camera>>();
 const cameraEnabled = ref(false);
 const base64Image = ref<string>();
 const openAIResponse = ref();
+const loading = ref(false);
 
 const snapshot = async () => {
   const blob = await camera.value?.snapshot();
@@ -28,6 +30,7 @@ const clearImage = () => {
 
 const generateData = async () => {
   try {
+    loading.value = true;
     openAIResponse.value = await $fetch('/vision', {
       method: 'POST',
       body: {
@@ -35,9 +38,11 @@ const generateData = async () => {
       },
     });
 
-    console.log(openAIResponse.value);
+    console.error(openAIResponse.value);
   } catch (error) {
     openAIResponse.value = error;
+  } finally {
+    loading.value = false;
   }
 };
 </script>
@@ -60,7 +65,11 @@ const generateData = async () => {
     </div>
 
     <div class="flex flex-col gap-y-3">
-      <Button :disabled="!base64Image" class="w-full" variant="secondary" @click="generateData">Upload Photo</Button>
+      <Button :disabled="!base64Image" class="w-full" variant="secondary" @click="generateData">
+        <span v-if="loading"><Loader2 class="w-4 h-4 mr-2 animate-spin" />Please wait</span>
+        <span v-else>Upload Photo</span>
+      </Button>
+
       <Button :disabled="!base64Image" class="w-full" variant="destructive" @click="clearImage">Clear Image</Button>
     </div>
 

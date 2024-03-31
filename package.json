@@ -2,7 +2,7 @@
   "name": "tikky",
   "private": true,
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "scripts": {
     "build": "nuxt build",
     "build-sw": "SW=true nuxt build",
@@ -19,6 +19,7 @@
     "@vueuse/core": "^10.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "lucide-vue-next": "^0.363.0",
     "openai": "4.31.0",
     "radix-vue": "1.6.1",
     "sharp": "^0.33.3",
