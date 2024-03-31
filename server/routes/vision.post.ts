@@ -10,14 +10,19 @@ const visionSchema = z.object({
 export default defineEventHandler(async (event) => {
   const result = await readValidatedBody(event, (body) => visionSchema.safeParse(body));
 
+  console.log('readValidatedBody result:', result);
+
   if (!result.success) {
+    setResponseStatus(event, 422);
+
     return {
-      status: 422,
       body: 'Please provide an image URL.',
     };
   }
 
   const imageString = result.data.imageString;
+
+  console.log('imageString:', imageString);
 
   try {
     const response = await openai.chat.completions.create({
@@ -49,17 +54,21 @@ export default defineEventHandler(async (event) => {
 
       return JSON.parse(content);
     } else {
+      console.error('An error occurred while trying to generate a response.');
+
       setResponseStatus(event, 500);
 
       return {
-        body: 'An error occurred while trying to generate a response.',
+        error: 'An error occurred while trying to generate a response.',
       };
     }
   } catch (error) {
+    console.error('An error occurred while trying to generate a base64 string from the image URL.', error);
+
     setResponseStatus(event, 500);
 
     return {
-      body: 'An error occurred while trying to generate a base64 string from the image URL.',
+      error: 'An error occurred while trying to generate a base64 string from the image URL.',
     };
   }
 });
