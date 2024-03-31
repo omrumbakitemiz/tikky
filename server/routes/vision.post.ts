@@ -56,8 +56,9 @@ export default defineEventHandler(async (event) => {
       };
     }
   } catch (error) {
+    setResponseStatus(event, 500);
+
     return {
-      status: 500,
       body: 'An error occurred while trying to generate a base64 string from the image URL.',
     };
   }
