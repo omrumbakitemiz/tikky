@@ -1,6 +1,6 @@
 {
   "functions": {
-    "server/**/*.ts": {
+    "__nitro/**/*.ts": {
       "maxDuration": 30
     }
   }
