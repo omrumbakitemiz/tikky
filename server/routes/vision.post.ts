@@ -1,6 +1,8 @@
 import OpenAI from 'openai';
 import { z } from 'zod';
 
+export const maxDuration = 30;
+
 const openai = new OpenAI();
 
 const visionSchema = z.object({

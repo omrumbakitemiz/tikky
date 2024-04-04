@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "__nitro/**/*.ts": {
-      "maxDuration": 30
-    }
-  }
-}
